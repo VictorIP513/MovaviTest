@@ -24,10 +24,12 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        pyramid.cpp
+        pyramid.cpp \
+    utils.cpp
 
 HEADERS += \
-        pyramid.h
+        pyramid.h \
+    utils.h
 
 FORMS += \
         pyramid.ui
