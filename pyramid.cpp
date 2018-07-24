@@ -13,6 +13,32 @@ Pyramid::~Pyramid()
     delete ui;
 }
 
+void Pyramid::fillFilenamesToCombobox()
+{
+    ui->fileComboBox->clear();
+    foreach (int imageNumber, images.keys())
+    {
+        QString imageName = Utils::getFilenameFromPath(images.value(imageNumber));
+        ui->fileComboBox->addItem(imageName);
+    }
+}
+
+void Pyramid::fillFilenamesToMap(QStringList filenames)
+{
+    images.clear();
+    for (int i = 0; i < filenames.size(); ++i)
+    {
+        images.insert(i, filenames.at(i));
+    }
+}
+
+void Pyramid::drawImage(int index)
+{
+    QString currentImageFilename = images.value(index);
+    QPixmap currentImage(currentImageFilename);
+    ui->imageLabel->setPixmap(currentImage);
+}
+
 void Pyramid::on_openImagesAction_triggered()
 {
     QStringList openedImages = QFileDialog::getOpenFileNames(
@@ -22,24 +48,12 @@ void Pyramid::on_openImagesAction_triggered()
                 "Images (*.png *.jpg)");
     if (!openedImages.isEmpty())
     {
-        images = openedImages;
+        fillFilenamesToMap(openedImages);
         fillFilenamesToCombobox();
     }
-
 }
 
-void Pyramid::fillFilenamesToCombobox()
+void Pyramid::on_fileComboBox_currentIndexChanged(int index)
 {
-    ui->fileComboBox->clear();
-    foreach (QString image, images)
-    {
-        QString imageName = Utils::getFilenameFromPath(image);
-        ui->fileComboBox->addItem(imageName);
-    }
-    drawImage();
-}
-
-void Pyramid::drawImage()
-{
-
+    drawImage(index);
 }

@@ -6,6 +6,7 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QFileDialog>
+#include <QMap>
 
 namespace Ui {
 class Pyramid;
@@ -22,11 +23,14 @@ public:
 private slots:
     void on_openImagesAction_triggered();
 
+    void on_fileComboBox_currentIndexChanged(int index);
+
 private:
     Ui::Pyramid *ui;
-    QStringList images;
+    QMap<int, QString> images;
     void fillFilenamesToCombobox();
-    void drawImage();
+    void fillFilenamesToMap(QStringList filenames);
+    void drawImage(int index);
 };
 
 #endif // PYRAMID_H
