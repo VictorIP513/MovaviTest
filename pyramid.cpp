@@ -91,7 +91,7 @@ void Pyramid::on_fileComboBox_currentIndexChanged(int index)
     fillSizeInformation();
 }
 
-void Pyramid::on_layerComboBox_currentIndexChanged(int index)
+void Pyramid::on_layerComboBox_currentIndexChanged(int)
 {
     drawImage();
     fillSizeInformation();
@@ -112,7 +112,39 @@ void Pyramid::on_layerCoefficientDoubleSpinBox_valueChanged(double newCoefficien
     fillSizeInformation();
 }
 
+void Pyramid::on_saveImageAction_triggered()
+{
+    QString filename = QFileDialog::getSaveFileName(
+                this,
+                "Save As",
+                "untitled.png",
+                "Images (*.png *.jpg)");
+    if (!filename.isEmpty())
+    {
+        QFile file(filename);
+        file.open(QIODevice::WriteOnly);
+        bool saveResult = currentImage.save(&file, "png");
+        if (!saveResult)
+        {
+            QMessageBox::critical(
+                        this,
+                        "Error",
+                        "Cannot create file " + filename,
+                        QMessageBox::Ok);
+        }
+    }
+}
+
 void Pyramid::on_exitAction_triggered()
 {
     QApplication::quit();
+}
+
+void Pyramid::on_aboutProgramAction_triggered()
+{
+    QMessageBox::information(
+                this,
+                "Information",
+                "Данное приложение было сделано в качестве тестового задания на позицию Junior C++ Developer в Movavi",
+                QMessageBox::Ok);
 }

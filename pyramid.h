@@ -9,6 +9,7 @@
 #include <QString>
 #include <QStringList>
 #include <QFileDialog>
+#include <QFile>
 #include <QMap>
 #include <QSize>
 #include <QPixmap>
@@ -16,6 +17,7 @@
 #include <QImageReader>
 #include <QVector>
 #include <QPair>
+#include <QMessageBox>
 
 namespace Ui {
 class Pyramid;
@@ -35,7 +37,9 @@ private slots:
     void on_smoothTransformationCheckBox_stateChanged(int newState);
     void on_layerCoefficientDoubleSpinBox_valueChanged(double newCoefficientValue);
     void on_exitAction_triggered();
-    void on_layerComboBox_currentIndexChanged(int index);
+    void on_layerComboBox_currentIndexChanged(int);
+    void on_aboutProgramAction_triggered();
+    void on_saveImageAction_triggered();
 
 private:
     Ui::Pyramid *ui;

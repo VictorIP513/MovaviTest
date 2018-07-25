@@ -353,6 +353,7 @@
      <string>File</string>
     </property>
     <addaction name="openImagesAction"/>
+    <addaction name="saveImageAction"/>
     <addaction name="separator"/>
     <addaction name="exitAction"/>
    </widget>
@@ -360,6 +361,7 @@
     <property name="title">
      <string>About</string>
     </property>
+    <addaction name="aboutProgramAction"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuAbout"/>
@@ -384,6 +386,19 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="aboutProgramAction">
+   <property name="text">
+    <string>About program</string>
+   </property>
+  </action>
+  <action name="saveImageAction">
+   <property name="text">
+    <string>Save current image</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
  </widget>
