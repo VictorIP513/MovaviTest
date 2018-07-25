@@ -26,9 +26,17 @@ void Pyramid::fillFilenamesToCombobox()
 void Pyramid::fillFilenamesToMap(QStringList filenames)
 {
     images.clear();
+    QVector<QPair<double, QString> > imagesDiagonal(filenames.size());
     for (int i = 0; i < filenames.size(); ++i)
     {
-        images.insert(i, filenames.at(i));
+        QImageReader reader(filenames.at(i));
+        imagesDiagonal[i].first = Utils::getDiagonalFromSize(reader.size());
+        imagesDiagonal[i].second = filenames.at(i);
+    }
+    std::sort(imagesDiagonal.begin(), imagesDiagonal.end());
+    for (int i = filenames.size() - 1; i >= 0; --i)
+    {
+        images.insert(filenames.size() - i - 1, imagesDiagonal.at(i).second);
     }
 }
 

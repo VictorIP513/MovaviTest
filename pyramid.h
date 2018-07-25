@@ -13,6 +13,9 @@
 #include <QSize>
 #include <QPixmap>
 #include <QtMath>
+#include <QImageReader>
+#include <QVector>
+#include <QPair>
 
 namespace Ui {
 class Pyramid;
