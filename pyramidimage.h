@@ -3,6 +3,7 @@
 
 #include <QPixmap>
 #include <QSize>
+#include <QtMath>
 
 class PyramidImage
 {

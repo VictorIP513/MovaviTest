@@ -25,8 +25,8 @@ QPixmap PyramidImage::getCompressedImage()
 
 QSize PyramidImage::getCompressedSize()
 {
-    int newWidth = static_cast<int>(image.size().rwidth() / layerCoefficient);
-    int newHeight = static_cast<int>(image.size().rheight() / layerCoefficient);
+    int newWidth = qFloor(image.size().rwidth() / (layerCoefficient));
+    int newHeight = qFloor(image.size().rheight() / (layerCoefficient));
     return QSize(newWidth, newHeight);
 }
 
@@ -38,7 +38,7 @@ void PyramidImage::enableSmoothTransformation(bool value)
 int PyramidImage::getMaxLayersForSize(QSize imageSize, double layerCoefficient)
 {
     int maxLayers = 0;
-    while (imageSize.rheight() > 1 || imageSize.rwidth() > 1)
+    while (imageSize.rheight() >= 1 && imageSize.rwidth() >= 1)
     {
         int newWidth = static_cast<int>(imageSize.rwidth() / layerCoefficient);
         int newHeight = static_cast<int>(imageSize.rheight() / layerCoefficient);

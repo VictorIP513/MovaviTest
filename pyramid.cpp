@@ -76,6 +76,15 @@ void Pyramid::fillSizeInformation()
     ui->sizeLabel->setText(size);
 }
 
+void Pyramid::setMaxValueInLayerSpinBox()
+{
+    QSize imageSize = pyramidImage->getCompressedSize();
+    double spinBoxMaxValue = defaultMaxValueInLayerSpinBox;
+    spinBoxMaxValue = qMin(static_cast<int>(spinBoxMaxValue), imageSize.rheight());
+    spinBoxMaxValue = qMin(static_cast<int>(spinBoxMaxValue), imageSize.rwidth());
+    ui->layerCoefficientDoubleSpinBox->setMaximum(spinBoxMaxValue);
+}
+
 int Pyramid::getMaxLayers()
 {
     return PyramidImage::getMaxLayersForSize(currentImage.size(), layerCoefficient);
@@ -132,6 +141,7 @@ void Pyramid::on_fileComboBox_currentIndexChanged(int index)
     }
     fillLayerCombobox();
     fillSizeInformation();
+    setMaxValueInLayerSpinBox();
 }
 
 void Pyramid::on_layerComboBox_currentIndexChanged(int)

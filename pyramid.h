@@ -4,7 +4,6 @@
 #include "utils.h"
 #include "pyramidimage.h"
 
-#include <QDebug>
 #include <QMainWindow>
 #include <QString>
 #include <QStringList>
@@ -53,7 +52,9 @@ private:
     void fillLayerCombobox();
     void fillSizeInformation();
     void drawImage();
+    void setMaxValueInLayerSpinBox();
     int getMaxLayers();
+    const double defaultMaxValueInLayerSpinBox = 100.0;
 };
 
 #endif // PYRAMID_H
