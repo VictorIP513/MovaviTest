@@ -81,6 +81,9 @@ void Pyramid::on_openImagesAction_triggered()
     {
         fillFilenamesToMap(openedImages);
         fillFilenamesToCombobox();
+        ui->layerCoefficientDoubleSpinBox->setEnabled(true);
+        ui->smoothTransformationCheckBox->setEnabled(true);
+        ui->saveImageAction->setEnabled(true);
     }
 }
 
