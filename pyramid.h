@@ -38,12 +38,13 @@ private:
     Ui::Pyramid *ui;
     QMap<int, QString> images;
     QPixmap currentImage;
-    bool enabledSmoothTransformation = false;
-    bool updateLayerCombobox = true;
+    PyramidImage *pyramidImage;
     double layerCoefficient = 2.0;
+    bool enableSmoothTransformation = false;
     void fillFilenamesToCombobox();
     void fillFilenamesToMap(QStringList filenames);
     void fillLayerCombobox();
+    void fillSizeInformation();
     void drawImage();
     int getMaxLayers();
 };
