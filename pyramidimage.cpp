@@ -38,7 +38,7 @@ void PyramidImage::enableSmoothTransformation(bool value)
 int PyramidImage::getMaxLayersForSize(QSize imageSize, double layerCoefficient)
 {
     int maxLayers = 0;
-    while (imageSize.rheight() < 1 || imageSize.rwidth() < 1)
+    while (imageSize.rheight() > 1 || imageSize.rwidth() > 1)
     {
         int newWidth = static_cast<int>(imageSize.rwidth() / layerCoefficient);
         int newHeight = static_cast<int>(imageSize.rheight() / layerCoefficient);

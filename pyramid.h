@@ -10,6 +10,9 @@
 #include <QStringList>
 #include <QFileDialog>
 #include <QMap>
+#include <QSize>
+#include <QPixmap>
+#include <QtMath>
 
 namespace Ui {
 class Pyramid;
@@ -27,14 +30,22 @@ private slots:
     void on_openImagesAction_triggered();
     void on_fileComboBox_currentIndexChanged(int index);
     void on_smoothTransformationCheckBox_stateChanged(int newState);
+    void on_layerCoefficientDoubleSpinBox_valueChanged(double newCoefficientValue);
+    void on_exitAction_triggered();
+    void on_layerComboBox_currentIndexChanged(int index);
 
 private:
     Ui::Pyramid *ui;
     QMap<int, QString> images;
+    QPixmap currentImage;
     bool enabledSmoothTransformation = false;
+    bool updateLayerCombobox = true;
+    double layerCoefficient = 2.0;
     void fillFilenamesToCombobox();
     void fillFilenamesToMap(QStringList filenames);
-    void drawImage(int index);
+    void fillLayerCombobox();
+    void drawImage();
+    int getMaxLayers();
 };
 
 #endif // PYRAMID_H

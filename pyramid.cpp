@@ -32,11 +32,27 @@ void Pyramid::fillFilenamesToMap(QStringList filenames)
     }
 }
 
-void Pyramid::drawImage(int index)
+void Pyramid::drawImage()
 {
-    QString currentImageFilename = images.value(index);
-    QPixmap currentImage(currentImageFilename);
-    ui->imageLabel->setPixmap(currentImage);
+    int selectedLayer = ui->layerComboBox->currentIndex();
+    PyramidImage pyramidImage(currentImage, qPow(layerCoefficient, selectedLayer));
+    pyramidImage.enableSmoothTransformation(enabledSmoothTransformation);
+    ui->imageLabel->setPixmap(pyramidImage.getCompressedImage());
+}
+
+void Pyramid::fillLayerCombobox()
+{
+    int countLayers = getMaxLayers();
+    ui->layerComboBox->clear();
+    for (int i = 0; i < countLayers; ++i)
+    {
+        ui->layerComboBox->addItem("Layer " + QString::number(i));
+    }
+}
+
+int Pyramid::getMaxLayers()
+{
+    return PyramidImage::getMaxLayersForSize(currentImage.size(), layerCoefficient);
 }
 
 void Pyramid::on_openImagesAction_triggered()
@@ -55,10 +71,30 @@ void Pyramid::on_openImagesAction_triggered()
 
 void Pyramid::on_fileComboBox_currentIndexChanged(int index)
 {
-    drawImage(index);
+    currentImage = QPixmap(images.value(index));
+    fillLayerCombobox();
 }
+
+void Pyramid::on_layerComboBox_currentIndexChanged(int index)
+{
+    drawImage();
+}
+
 
 void Pyramid::on_smoothTransformationCheckBox_stateChanged(int newState)
 {
     enabledSmoothTransformation = newState;
+    drawImage();
+}
+
+void Pyramid::on_layerCoefficientDoubleSpinBox_valueChanged(double newCoefficientValue)
+{
+    layerCoefficient = newCoefficientValue;
+    fillLayerCombobox();
+    drawImage();
+}
+
+void Pyramid::on_exitAction_triggered()
+{
+    QApplication::quit();
 }
