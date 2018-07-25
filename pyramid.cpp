@@ -30,11 +30,22 @@ void Pyramid::fillFilenamesToMap(QStringList filenames)
     for (int i = 0; i < filenames.size(); ++i)
     {
         QImageReader reader(filenames.at(i));
+        QSize imageSize = reader.size();
+        if (imageSize == QSize(-1, -1))
+        {
+            QMessageBox::critical(
+                        this,
+                        "Error",
+                        "Cannot read file " + filenames.at(i) + ". " + reader.errorString(),
+                        QMessageBox::Ok);
+            imagesDiagonal.remove(i);
+            continue;
+        }
         imagesDiagonal[i].first = Utils::getDiagonalFromSize(reader.size());
         imagesDiagonal[i].second = filenames.at(i);
     }
     std::sort(imagesDiagonal.begin(), imagesDiagonal.end());
-    for (int i = filenames.size() - 1; i >= 0; --i)
+    for (int i = imagesDiagonal.size() - 1; i >= 0; --i)
     {
         images.insert(filenames.size() - i - 1, imagesDiagonal.at(i).second);
     }
@@ -81,15 +92,44 @@ void Pyramid::on_openImagesAction_triggered()
     {
         fillFilenamesToMap(openedImages);
         fillFilenamesToCombobox();
-        ui->layerCoefficientDoubleSpinBox->setEnabled(true);
-        ui->smoothTransformationCheckBox->setEnabled(true);
-        ui->saveImageAction->setEnabled(true);
+        if (!images.isEmpty())
+        {
+            ui->layerCoefficientDoubleSpinBox->setEnabled(true);
+            ui->smoothTransformationCheckBox->setEnabled(true);
+            ui->saveImageAction->setEnabled(true);
+            ui->countImagesOpenedLabel->setText("Opened " + QString::number(images.count()) + " images");
+        }
+        else
+        {
+            ui->layerCoefficientDoubleSpinBox->setEnabled(false);
+            ui->smoothTransformationCheckBox->setEnabled(false);
+            ui->saveImageAction->setEnabled(false);
+            ui->sizeLabel->setText("");
+            ui->countImagesOpenedLabel->setText("");
+        }
     }
 }
 
 void Pyramid::on_fileComboBox_currentIndexChanged(int index)
 {
-    currentImage = QPixmap(images.value(index));
+    bool loadResult = currentImage.load(images.value(index));
+    if (!loadResult)
+    {
+        QMessageBox::critical(
+                    this,
+                    "Error",
+                    "Cannot open file " + images.value(index),
+                    QMessageBox::Ok);
+        ui->layerCoefficientDoubleSpinBox->setEnabled(false);
+        ui->smoothTransformationCheckBox->setEnabled(false);
+        ui->saveImageAction->setEnabled(false);
+    }
+    else
+    {
+        ui->layerCoefficientDoubleSpinBox->setEnabled(true);
+        ui->smoothTransformationCheckBox->setEnabled(true);
+        ui->saveImageAction->setEnabled(true);
+    }
     fillLayerCombobox();
     fillSizeInformation();
 }
