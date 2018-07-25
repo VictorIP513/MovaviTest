@@ -35,7 +35,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>84</width>
+            <width>0</width>
             <height>20</height>
            </size>
           </property>
@@ -115,7 +115,7 @@
          <widget class="QLabel" name="sizeLabel">
           <property name="minimumSize">
            <size>
-            <width>80</width>
+            <width>100</width>
             <height>0</height>
            </size>
           </property>
@@ -123,7 +123,29 @@
            <string>Size:</string>
           </property>
           <property name="alignment">
-           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="smoothTransformationCheckBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>152</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>Enable smooth transformation</string>
           </property>
          </widget>
         </item>

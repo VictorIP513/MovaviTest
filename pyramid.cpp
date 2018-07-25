@@ -57,3 +57,8 @@ void Pyramid::on_fileComboBox_currentIndexChanged(int index)
 {
     drawImage(index);
 }
+
+void Pyramid::on_smoothTransformationCheckBox_stateChanged(int newState)
+{
+    enabledSmoothTransformation = newState;
+}
