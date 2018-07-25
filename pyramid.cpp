@@ -176,7 +176,7 @@ void Pyramid::on_saveImageAction_triggered()
     {
         QFile file(filename);
         file.open(QIODevice::WriteOnly);
-        bool saveResult = currentImage.save(&file, "png");
+        bool saveResult = pyramidImage->getCompressedImage().save(&file, "png");
         if (!saveResult)
         {
             QMessageBox::critical(
